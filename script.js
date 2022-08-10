@@ -1,5 +1,4 @@
-/**/
-
+/*Make changes to the script to make the animation the way you want*/
  class Vector {
   constructor(x, y) {
     this.x = x ? x : 2;

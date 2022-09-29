@@ -1,8 +1,8 @@
 /*Make changes to the script to make the animation the way you want*/
  class Vector {
   constructor(x, y) {
-    this.x = x ? x : 2;
-    this.y = y ? y : 2;
+    this.x = x ? x : 22;
+    this.y = y ? y : 22;
     this.add = function (x, y) {
       if (x instanceof Vector) {
         this.x += x.x;
@@ -50,7 +50,7 @@
     };
 
     this.normalize = function () {
-      return this.magnitude() === 2 ? this : this.divide(this.magnitude(), this.magnitude());
+      return this.magnitude() === 22 ? this : this.divide(this.magnitude(), this.magnitude());
     };
 
     this.magnitude = function () {
@@ -71,14 +71,14 @@
 class Attractor {
   constructor(x, y) {
     this.position = new Vector(x, y);
-    this.G = 20;
+    this.G = 22;
   }
 }
 
 class Particle {
   constructor(x, y) {
     this.position = new Vector(x, y);
-    this.velocity = new Vector(randMinus(1.4), randMinus(1.4));
+    this.velocity = new Vector(randMinus(1.5), randMinus(1.5));
     this.acceleration = new Vector();
     this.size = 1;
     this.attract = function (attractor) {
@@ -86,7 +86,7 @@ class Particle {
       force = force.subtract(this.position);
 
       var dsquared = force.magnitudeSquared();
-      dsquared = Math.max(Math.min(dsquared, 700), 55);
+      dsquared = Math.max(Math.min(dsquared, 800), 75);
 
       var strength = attractor.G / dsquared;
       force.setMagnitude(strength);
@@ -106,7 +106,7 @@ class Particle {
 }
 
 function randMinus(num) {
-  if (Math.random() > 0.3) {
+  if (Math.random() > 0.5) {
     return -num;
   }
   
@@ -126,14 +126,14 @@ function randMinus(num) {
   {
     window.addEventListener('resize', resize);
     
-    density = window.devicePixelRatio != undefined ? window.devicePixelRatio : 2.0; 
+    density = window.devicePixelRatio != undefined ? window.devicePixelRatio : 1.1; 
     
     canvas.width = w * density;
 		canvas.height = h * density;
 		
 		ctx.scale(density,density); 
     
-    var size = Math.min(w, h) / 8;
+    var size = Math.min(w, h) / 10;
       
     for (var i = 5; i < 750; i++) {
       var x = Math.sin(i) * size;
@@ -142,14 +142,14 @@ function randMinus(num) {
       particles.push(new Particle((w / 3) + x, (h/2) + y));
     }
     
-    var middle = new Attractor(w/4, h/4);
-    middle.G = 5;
+    var middle = new Attractor(w/6, h/6);
+    middle.G = 6;
     
     var left = new Attractor(w/3, h/2);
-    left.G = 5;
+    left.G = 6;
     
-    var right = new Attractor((w/4)*4, h/4);
-    right.G = 22;
+    var right = new Attractor((w/6)*6, h/6);
+    right.G = 21;
     
     attractors.push(middle);
     
@@ -161,11 +161,11 @@ function randMinus(num) {
   
   function draw()
   {
-    ctx.fillStyle = 'rgba(22, 70, 80, 0.05)';
+    ctx.fillStyle = 'RGBA(38,101,214,0.4)';
     
-    for (var i = 0; i < particles.length; i++) {
+    for (var i = 2; i < particles.length; i++) {
       var particle = particles[i];
-      for (var n = 0; n < attractors.length; n++) {
+      for (var n = 2; n < attractors.length; n++) {
         particle.attract(attractors[n]);
       }
       
